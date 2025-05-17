@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import QUIT, Rect
+from pygame.locals import QUIT, Rect, MOUSEBUTTONDOWN
 from model.bar import Bar
 from model.ball import Ball
 import sys
@@ -33,6 +33,8 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                ball.start()
 
         clock.tick(60)
 

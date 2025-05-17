@@ -12,8 +12,21 @@ class Ball:
         self.rect.centerx = bar.rect.centerx  # ボールのxの初期位置は棒の中心に合わせる
         self.rect.bottom = bar.rect.top  # ボールのyの初期位置は棒の上辺に合わせる
         self.dx, self.dy = 3, -4  # ボールのx軸、y軸のスピード
+        self.status = "INIT"
+
+    def start(self):
+        self.status = "RUNNING"
 
     def update(self, SCREEN: pygame.locals.Rect):
+        if self.status == "INIT":
+            self.rect.centerx = (
+                self.bar.rect.centerx
+            )  # ボールのxの初期位置は棒の中心に合わせる
+            self.rect.bottom = (
+                self.bar.rect.top
+            )  # ボールのyの初期位置は棒の上辺に合わせる
+            return
+
         old_rect = self.rect.copy()
         self.rect.move_ip(self.dx, self.dy)
         if self.rect.colliderect(self.bar.rect):
