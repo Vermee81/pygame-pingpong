@@ -14,7 +14,21 @@ class Ball:
         self.dx, self.dy = 3, -4  # ボールのx軸、y軸のスピード
 
     def update(self, SCREEN: pygame.locals.Rect):
+        old_rect = self.rect.copy()
         self.rect.move_ip(self.dx, self.dy)
+        if self.rect.colliderect(self.bar.rect):
+            if self.bar.rect.left >= old_rect.right:
+                self.rect.right = self.bar.rect.left
+                self.dx = -self.dx
+            elif self.bar.rect.right < old_rect.left:
+                self.rect.left = self.bar.rect.right
+                self.dx = -self.dx
+            elif self.bar.rect.top >= old_rect.bottom:
+                self.rect.bottom = self.bar.rect.top
+                self.dy = -self.dy
+            else:
+                self.rect.top = self.bar.rect.bottom
+                self.dy = -self.dy
         if self.rect.left < SCREEN.left or self.rect.bottom > SCREEN.bottom:
             self.dx = -self.dx
         if self.rect.top < SCREEN.top or self.rect.bottom > SCREEN.bottom:
