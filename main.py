@@ -31,6 +31,12 @@ def main():
 
         screen.fill((0, 0, 0))
 
+        bar_rect.centerx = pygame.mouse.get_pos()[
+            0
+        ]  # get_posでx座標とy座標のtupleが返ってくるので、tupleの最初の要素をとる
+        bar_rect.clamp_ip(SCREEN)
+        ball_rect.centerx = bar_rect.centerx
+
         screen.blit(bar, bar_rect)
         screen.blit(ball, ball_rect)
 
