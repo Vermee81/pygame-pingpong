@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import QUIT, Rect
+from model.bar import Bar
 import sys
 
 
@@ -12,30 +13,22 @@ def main():
     clock = pygame.time.Clock()
 
     """棒とボールの設定"""
-    bar = pygame.Surface((50, 10))  # 棒のSurfaceは横50、縦10
-    bar.fill((255, 255, 255))  # 棒の色は白
-    bar_rect = bar.get_rect()
-    bar_rect.center = (
-        SCREEN.centerx,
-        SCREEN.bottom - 50,
-    )  # 棒の初期位置xは画面の中心、初期位置yは画面の下辺から50上
+    bar = Bar(SCREEN)
     ball = pygame.Surface((20, 20))  # ボールのSurfaceは 20*20
     pygame.draw.circle(
         ball, (255, 255, 255), (10, 10), 10
     )  # ボールの中心は(10,10)半径は10、色は白
     ball_rect = ball.get_rect()
-    ball_rect.centerx = bar_rect.centerx  # ボールのxの初期位置は棒の中心に合わせる
-    ball_rect.bottom = bar_rect.top  # ボールのyの初期位置は棒の上辺に合わせる
+    ball_rect.centerx = bar.rect.centerx  # ボールのxの初期位置は棒の中心に合わせる
+    ball_rect.bottom = bar.rect.top  # ボールのyの初期位置は棒の上辺に合わせる
     dx, dy = 3, -4  # ボールのx軸、y軸のスピード
 
     while True:
 
         screen.fill((0, 0, 0))
 
-        bar_rect.centerx = pygame.mouse.get_pos()[
-            0
-        ]  # get_posでx座標とy座標のtupleが返ってくるので、tupleの最初の要素をとる
-        bar_rect.clamp_ip(SCREEN)
+        bar.update(SCREEN)
+
         ball_rect.move_ip(dx, dy)
         if ball_rect.left < SCREEN.left or ball_rect.bottom > SCREEN.bottom:
             dx = -dx
@@ -43,7 +36,7 @@ def main():
             dy = -dy
         ball_rect.clamp_ip(SCREEN)
 
-        screen.blit(bar, bar_rect)
+        bar.draw(screen)
         screen.blit(ball, ball_rect)
 
         pygame.display.update()
