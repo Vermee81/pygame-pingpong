@@ -26,6 +26,7 @@ def main():
     ball_rect = ball.get_rect()
     ball_rect.centerx = bar_rect.centerx  # ボールのxの初期位置は棒の中心に合わせる
     ball_rect.bottom = bar_rect.top  # ボールのyの初期位置は棒の上辺に合わせる
+    dx, dy = 3, -4  # ボールのx軸、y軸のスピード
 
     while True:
 
@@ -35,7 +36,12 @@ def main():
             0
         ]  # get_posでx座標とy座標のtupleが返ってくるので、tupleの最初の要素をとる
         bar_rect.clamp_ip(SCREEN)
-        ball_rect.centerx = bar_rect.centerx
+        ball_rect.move_ip(dx, dy)
+        if ball_rect.left < SCREEN.left or ball_rect.bottom > SCREEN.bottom:
+            dx = -dx
+        if ball_rect.top < SCREEN.top or ball_rect.bottom > SCREEN.bottom:
+            dy = -dy
+        ball_rect.clamp_ip(SCREEN)
 
         screen.blit(bar, bar_rect)
         screen.blit(ball, ball_rect)
