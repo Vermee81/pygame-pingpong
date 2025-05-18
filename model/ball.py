@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import Rect
 
 
 class Ball:
@@ -42,7 +43,7 @@ class Ball:
             else:
                 self.rect.top = self.bar.rect.bottom
                 self.dy = -self.dy
-        if self.rect.left < SCREEN.left or self.rect.bottom > SCREEN.bottom:
+        if self.rect.left < SCREEN.left or self.rect.right > SCREEN.right:
             self.dx = -self.dx
         if self.rect.top < SCREEN.top or self.rect.bottom > SCREEN.bottom:
             self.dy = -self.dy
