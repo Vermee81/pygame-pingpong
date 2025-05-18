@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import Rect
+from math import sqrt, cos, sin, radians
 
 
 class Ball:
@@ -39,7 +40,11 @@ class Ball:
                 self.dx = -self.dx
             elif self.bar.rect.top >= old_rect.bottom:
                 self.rect.bottom = self.bar.rect.top
-                self.dy = -self.dy
+                x = self.rect.centerx - self.bar.rect.left
+                y = (45 - 135) * x / self.bar.rect.width + 135
+                diagonal_speed = sqrt(self.dx**2 + self.dy**2)
+                self.dx = diagonal_speed * cos(radians(y))
+                self.dy = -1 * diagonal_speed * sin(radians(y))
             else:
                 self.rect.top = self.bar.rect.bottom
                 self.dy = -self.dy
