@@ -11,5 +11,6 @@ dependencies = [
 [dependency-groups]
 dev = [
     "black>=25.1.0",
+    "pytest>=8.3.5",
     "taskipy>=1.14.1",
 ]
