@@ -53,10 +53,10 @@ class Ball:
 
         old_rect = self.rect.copy()
         self.rect.move_ip(self.dx, self.dy)
-        
+
         if self.rect.colliderect(self.bar.rect):
             self._handle_bar_collision(old_rect)
-            
+
         self._handle_wall_collision(SCREEN)
         self.rect.clamp_ip(SCREEN)
 
