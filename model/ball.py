@@ -45,8 +45,10 @@ class Ball:
                 self.dy = -self.dy
         if self.rect.left < SCREEN.left or self.rect.right > SCREEN.right:
             self.dx = -self.dx
-        if self.rect.top < SCREEN.top or self.rect.bottom > SCREEN.bottom:
+        if self.rect.top < SCREEN.top:
             self.dy = -self.dy
+        if self.rect.bottom > SCREEN.bottom:
+            self.status = "INIT"
         self.rect.clamp_ip(SCREEN)
 
     def draw(self, screen_surface: pygame.Surface):
